@@ -25,6 +25,7 @@ const makeBackground = _ =>
         .attr("x", _ => getRandInt(900))
         .attr("y", _ => getRandInt(900))
         .style("fill", _ => getRandomColor())
+        .style("font-size", _ => getRandomFSize());
 
 let charsArray,
     colors = ["red", "green", "blue","yellow", "orange", "pink"];
@@ -36,6 +37,8 @@ const makeCharsArray = _ => { charsArray = makeArray(97,123).concat(makeArray(65
 const makeArray = (f,s) => [...Array(s-f)].map((_,i) => String.fromCharCode(f+i));
 
 const getRandomLetter = _ => charsArray[getRandInt(charsArray.length)]
+
+const getRandomFSize = _ => `${getRandInt(60,10)}px`;
 
 const getRandomColor = _ => colors[getRandInt(colors.length)];
 
