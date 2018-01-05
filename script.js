@@ -20,12 +20,12 @@ const makeBackground = _ =>
       .data([...Array(1000)])
       .enter()
       .append("g")
+        .attr("transform", _ => `translate(${getRandInt(900)}, ${getRandInt(900)})`)
         .append("text")
         .text( _ => getRandomLetter())
-        .attr("x", _ => getRandInt(900))
-        .attr("y", _ => getRandInt(900))
         .style("fill", _ => getRandomColor())
-        .style("font-size", _ => getRandomFSize());
+        .style("font-size", _ => getRandomFSize())
+        .attr("transform", _ => `rotate(${getRandInt(360)})`)
 
 let charsArray,
     colors = ["red", "green", "blue","yellow", "orange", "pink"];
