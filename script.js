@@ -42,6 +42,12 @@ const getRandomFSize = _ => `${getRandInt(60,10)}px`;
 
 const getRandomColor = _ => colors[getRandInt(colors.length)];
 
+const randomRotation = _ => {let y=getRandInt(0,360); d3.selectAll("text")
+                              .attr("transform", _ => `rotate(${getRandInt(360)})`); }
+const animate = _ => setInterval(randomRotation, 1000);
+
 const doStuff = _ => { printStuff(); makeCharsArray(); makeBackground(); }
 
+
 window.onload = doStuff; 
+animate();
