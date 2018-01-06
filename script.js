@@ -7,12 +7,12 @@ const request = url => new Promise((res,rej) => {
     xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200 && res(xhr.response);
   xhr.send();
 });
-  
+
 async function printStuff() {
-  console.log("WORKING");
-  const quote = await request("http://quotes.stormconsultancy.co.uk/random.json");
-  
-  
+  let json = await request("http://quotes.stormconsultancy.co.uk/random.json");
+  let quote = JSON.parse(json)["quote"];
+  d3.select(".quoteBox")
+    .html(quote);
 }
 
 const makeBackground = _ => 
@@ -56,7 +56,7 @@ const addBox = _ => d3.select("svg")
                       .append("div")
                       .attr("class", "quoteBox")
 
-const doStuff = _ => { makeCharsArray(); makeBackground(); printStuff(); addBox(); }
+const doStuff = _ => { makeCharsArray(); makeBackground(); addBox(); printStuff();}
 
 
 window.onload = doStuff; 
