@@ -47,14 +47,23 @@ const randomRotation = _ => {let y=getRandInt(0,360); d3.selectAll("text")
                               .attr("transform", _ => `rotate(${getRandInt(360)})`); }
 const animate = _ => setInterval(randomRotation, 1000);
 
-const addBox = _ => d3.select("svg")
-                      .append("foreignObject")
-                      .attr("x", "100")
-                      .attr("y", "100")
-                      .attr("width", "200")
-                      .append("xhtml:div")
-                      .append("div")
-                      .attr("class", "quoteBox")
+const addBox = _ => { let fo = d3.select("svg")
+                                 .append("foreignObject")
+                                 .attr("x", "100")
+                                 .attr("y", "100")
+                                 .attr("width", "200");
+
+                      fo.append("xhtml:div")
+                        .append("div")
+                        .attr("class", "quoteBox");
+
+                      fo.append("xhtml:div")
+                        .append("div")
+                        .attr("class", "toolBox")
+                        .append("button")
+                        .html("new random quote")
+                        .on("click", printStuff);
+}
 
 const doStuff = _ => { makeCharsArray(); makeBackground(); addBox(); printStuff();}
 
