@@ -25,3 +25,8 @@ text {
   min-height: 100px;
   border-radius: 10px;
 }  
+
+img {
+  width: 10px;
+  height: 10px;
+  }

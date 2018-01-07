@@ -11,8 +11,18 @@ const request = url => new Promise((res,rej) => {
 async function printStuff() {
   let json = await request("http://quotes.stormconsultancy.co.uk/random.json");
   let quote = JSON.parse(json)["quote"];
-  d3.select(".quoteBox")
-    .html(quote);
+  let author = JSON.parse(json)["author"];
+  let quoteBox = d3.select(".quoteBox");
+  quoteBox.selectAll("p")
+          .remove();
+  quoteBox.append("p")
+          .attr("class", "quote")
+          .html(quote);
+  quoteBox.append("p")
+          .attr("class", "author")
+          .html(`'${author}'`);
+  d3.select(".twitter-share-button")
+    .attr("href", `https://twitter.com/intent/tweet?text=${quote}~~${author}`)
 }
 
 const makeBackground = _ => 
@@ -47,22 +57,28 @@ const randomRotation = _ => {let y=getRandInt(0,360); d3.selectAll("text")
                               .attr("transform", _ => `rotate(${getRandInt(360)})`); }
 const animate = _ => setInterval(randomRotation, 1000);
 
-const addBox = _ => { let fo = d3.select("svg")
-                                 .append("foreignObject")
-                                 .attr("x", "100")
-                                 .attr("y", "100")
-                                 .attr("width", "200");
+const addBox = _ => {
+ let fo = d3.select("svg")
+            .append("foreignObject")
+            .attr("x", "100")
+            .attr("y", "100")
+            .attr("width", "200");
 
-                      fo.append("xhtml:div")
-                        .append("div")
-                        .attr("class", "quoteBox");
+  fo.append("xhtml:div")
+    .append("div")
+    .attr("class", "quoteBox");
 
-                      fo.append("xhtml:div")
-                        .append("div")
-                        .attr("class", "toolBox")
-                        .append("button")
-                        .html("new random quote")
-                        .on("click", printStuff);
+  let tBox = fo.append("xhtml:div")
+               .append("div")
+               .attr("class", "toolBox");
+  tBox.append("button")
+      .html("new random quote")
+      .on("click", printStuff);
+
+  tBox.append("a")
+      .attr("class", "twitter-share-button")
+      .attr("href", "https://twitter.com/intent/tweet")
+      .html("<img src='data/twitter.png'/>")
 }
 
 const doStuff = _ => { makeCharsArray(); makeBackground(); addBox(); printStuff();}
