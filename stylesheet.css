@@ -1,3 +1,7 @@
+html {
+  background-color: black;
+}
+
 .svg-container {
   display: inline-block;
   position: relative;
@@ -18,15 +22,36 @@ text {
   font-weight: bold;
   }
 
-.quoteBox {
-  background-color: white;
-  width: 200px;
+.outerBox {
+  font-size: 0.7em;
+  background-color: black;
+  color: #b3ceac;
+  width: 80%;
   height: auto;
-  min-height: 100px;
-  border-radius: 10px;
+  border-radius: 10%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.quoteBox {
+  text-align: center;
 }  
 
 img {
-  width: 10px;
-  height: 10px;
+  width: 3%;
+  height: 3%;
   }
+.author {
+  text-align: end;
+}
+
+.toolBox {
+  color: #6b8864;
+  font-size: 0.5em;
+  text-align: center;
+}
+
+.newQuote:hover {
+  cursor: pointer;
+}

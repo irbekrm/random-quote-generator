@@ -13,6 +13,7 @@ async function printStuff() {
   let quote = JSON.parse(json)["quote"];
   let author = JSON.parse(json)["author"];
   let quoteBox = d3.select(".quoteBox");
+  randomRotation();
   quoteBox.selectAll("p")
           .remove();
   quoteBox.append("p")
@@ -20,9 +21,9 @@ async function printStuff() {
           .html(quote);
   quoteBox.append("p")
           .attr("class", "author")
-          .html(`'${author}'`);
+          .html(`- ${author}`);
   d3.select(".twitter-share-button")
-    .attr("href", `https://twitter.com/intent/tweet?text=${quote}~~${author}`)
+    .attr("href", `https://twitter.com/intent/tweet?text=${quote}-${author}`)
 }
 
 const makeBackground = _ => 
@@ -39,7 +40,7 @@ const makeBackground = _ =>
         .attr("transform", _ => `rotate(${getRandInt(360)})`)
 
 let charsArray,
-    colors = ["red", "green", "blue","yellow", "orange", "pink"];
+    colors = ["red", "green", "blue","yellow", "orange", "purple"];
 
 const getRandInt = (max,min=0) => ~~(Math.random() * (max -min) + min);
 
@@ -60,25 +61,29 @@ const animate = _ => setInterval(randomRotation, 1000);
 const addBox = _ => {
  let fo = d3.select("svg")
             .append("foreignObject")
-            .attr("x", "100")
-            .attr("y", "100")
-            .attr("width", "200");
+            .attr("x", "7%")
+            .attr("y", "8%")
+            .attr("width", "100%");
 
-  fo.append("xhtml:div")
-    .append("div")
-    .attr("class", "quoteBox");
+  let outerBox = fo.append("xhtml:div")
+                   .append("div")
+                   .attr("class", "outerBox");
 
-  let tBox = fo.append("xhtml:div")
-               .append("div")
+  outerBox.append("div")
+          .attr("class", "quoteBox");
+
+  let tBox = outerBox.append("div")
                .attr("class", "toolBox");
-  tBox.append("button")
-      .html("new random quote")
-      .on("click", printStuff);
-
-  tBox.append("a")
+  fo.append("xhtml:a")
+    .append("a")
       .attr("class", "twitter-share-button")
       .attr("href", "https://twitter.com/intent/tweet")
-      .html("<img src='data/twitter.png'/>")
+      .html("<img src='data/white.png'/>")
+  tBox.append("div")
+      .html("new random quote")
+      .attr("class", "newQuote")
+      .on("click", printStuff);
+
 }
 
 const doStuff = _ => { makeCharsArray(); makeBackground(); addBox(); printStuff();}
