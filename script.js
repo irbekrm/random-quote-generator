@@ -56,8 +56,6 @@ const getRandomColor = _ => colors[getRandInt(colors.length)];
 
 const randomRotation = _ => {let y=getRandInt(0,360); d3.selectAll("text")
                               .attr("transform", _ => `rotate(${getRandInt(360)})`); }
-const animate = _ => setInterval(randomRotation, 1000);
-
 const addBox = _ => {
  let fo = d3.select("svg")
             .append("foreignObject")
